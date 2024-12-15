@@ -1,0 +1,14 @@
+.stack-box {
+  position: relative;
+}
+
+
+.stack-item {
+  width: 100%;
+  overflow: hidden;
+}
+
+.controls-box {
+  position: absolute;
+  top: 350px;
+}
