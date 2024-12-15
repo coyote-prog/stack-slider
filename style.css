@@ -6,6 +6,7 @@
 .stack-item {
   width: 100%;
   overflow: hidden;
+  transition: all .5s;
 }
 
 .controls-box {
