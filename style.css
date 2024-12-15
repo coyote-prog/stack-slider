@@ -1,3 +1,8 @@
+.stack-wrapper {
+  background-color: teal;
+}
+
+
 .stack-box {
   position: relative;
 }
