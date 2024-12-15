@@ -11,5 +11,28 @@
 
 .controls-box {
   position: absolute;
-  top: 350px;
+  top: 450px;
+  left: 150px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stack-control-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: all .35s;
+}
+
+.stack-control-btn-svg {
+  transition: all .35s;
+}
+
+.stack-control-btn:hover .stack-control-btn-svg {
+  transform: scale(1.25);
 }
