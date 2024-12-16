@@ -5,19 +5,15 @@ const stackWrapper = document.querySelector('.stack-wrapper');
 
 const settings = {
   borderRadius: 10,
-  topGap: 30,
-  leftGap: 30
+  topGap: 25,
+  leftGap: 25
 }
 
 function stackSliderStyling() {
+  
+  sizing();
 
   [...stackItems].forEach((item, index) => {
-
-    let sliderBoxSize = stackWrapper.getBoundingClientRect();
-
-    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) + 'px';
-
-    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) + 'px';
 
     item.style.borderRadius = settings.borderRadius + 'px';
     item.style.position = 'absolute';
@@ -30,6 +26,25 @@ function stackSliderStyling() {
 }
 
 stackSliderStyling();
+
+window.addEventListener('resize', ()=> {
+  sizing();
+})
+
+function sizing(){
+  
+  let sliderBoxSize = stackWrapper.getBoundingClientRect();
+
+  [...stackItems].forEach((item, index) => {
+
+
+    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) + 'px';
+
+    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) + 'px';
+
+  })
+
+}
 
 
 stackNextBtn.addEventListener('click', () => {
