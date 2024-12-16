@@ -1,5 +1,12 @@
+
+.box {
+  width: 600px;
+  height: 600px;
+  border: 3px solid limegreen;
+}
 .stack-wrapper {
   background-color: teal;
+  height: 100%;
 }
 
 .stack-box {
@@ -14,7 +21,7 @@
 
 .controls-box {
   position: absolute;
-  top: 450px;
+  top: 650px;
   left: 150px;
   display: flex;
   align-items: center;
