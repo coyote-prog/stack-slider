@@ -3,6 +3,9 @@ const stackPrevBtn = document.querySelector('.stack-btn-prev');
 const stackNextBtn = document.querySelector('.stack-btn-next');
 const stackWrapper = document.querySelector('.stack-wrapper');
 
+/* One-direction mode work better (topGap - stepWidth) or (leftGap - stepHeight) 
+Use stepWidth / stepHeight if need various items width / height */
+
 const settings = {
   borderRadius: 10,
   topGap: 30,
