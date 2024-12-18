@@ -5,9 +5,17 @@ const stackWrapper = document.querySelector('.stack-wrapper');
 
 const settings = {
   borderRadius: 10,
-  topGap: 25,
-  leftGap: 25
+  topGap: 30,
+  leftGap: 0,
+  stepWidth: 30,
+  stepHeight: 0
 }
+
+let positions = [];
+
+stackItems.forEach((item, index)=> {
+  positions.push(index);
+})
 
 function stackSliderStyling() {
   
@@ -19,8 +27,9 @@ function stackSliderStyling() {
     item.style.position = 'absolute';
     item.style.zIndex = index;
 
-    item.style.left = (settings.leftGap * index) + 'px';
-    item.style.top = (settings.topGap * index) + 'px';
+    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
+
+    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
 
   })
 }
@@ -29,7 +38,8 @@ stackSliderStyling();
 
 window.addEventListener('resize', ()=> {
   sizing();
-})
+});
+
 
 function sizing(){
   
@@ -37,19 +47,20 @@ function sizing(){
 
   [...stackItems].forEach((item, index) => {
 
+    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * positions[index]))) + 'px';
 
-    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) + 'px';
+    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * positions[index]))) + 'px';
 
-    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) + 'px';
-
-  })
+  });
 
 }
 
 
 stackNextBtn.addEventListener('click', () => {
 
-  [...stackItems].forEach((item) => {
+  let sliderBoxSize = stackWrapper.getBoundingClientRect();
+
+  [...stackItems].forEach((item, index) => {
 
     item.style.zIndex = Number(item.style.zIndex) + 1;
 
@@ -57,15 +68,22 @@ stackNextBtn.addEventListener('click', () => {
       item.style.zIndex = 0;
     }
 
-    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + 'px';
-    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + 'px';
+    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) + 'px';
 
+    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) + 'px';
+
+    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
+
+    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
+    
   });
 
 });
 
 
 stackPrevBtn.addEventListener('click', () => {
+
+  let sliderBoxSize = stackWrapper.getBoundingClientRect();
 
   [...stackItems].forEach((item) => {
 
@@ -75,8 +93,13 @@ stackPrevBtn.addEventListener('click', () => {
       item.style.zIndex = stackItems.length - 1;
     }
 
-    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + 'px';
-    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + 'px';
+    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) + 'px';
+
+    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) + 'px';
+
+    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
+
+    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
 
   });
 
