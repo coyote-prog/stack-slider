@@ -3,16 +3,18 @@ const stackPrevBtn = document.querySelector('.stack-btn-prev');
 const stackNextBtn = document.querySelector('.stack-btn-next');
 const stackWrapper = document.querySelector('.stack-wrapper');
 
+const stackSliderButtons = document.querySelectorAll('.stack-control-btn');
+
 const settings = {
   borderRadius: 10,
-  topGap: 30,
-  leftGap: 0,
-  stepWidth: 30,
-  stepHeight: 0
+  topGap: 0,
+  leftGap: 30,
+  stepWidth: 0,
+  stepHeight: 30
 }
 
 function stackSliderStyling() {
-  
+
   sizing();
 
   [...stackItems].forEach((item, index) => {
@@ -30,13 +32,13 @@ function stackSliderStyling() {
 
 stackSliderStyling();
 
-window.addEventListener('resize', ()=> {
+window.addEventListener('resize', () => {
   sizing();
 });
 
 
-function sizing(){
-  
+function sizing() {
+
   let sliderBoxSize = stackWrapper.getBoundingClientRect();
 
   [...stackItems].forEach((item, index) => {
@@ -49,7 +51,7 @@ function sizing(){
 
 }
 
-
+/*
 stackNextBtn.addEventListener('click', () => {
 
   let sliderBoxSize = stackWrapper.getBoundingClientRect();
@@ -69,7 +71,7 @@ stackNextBtn.addEventListener('click', () => {
     item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
 
     item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
-    
+
   });
 
 });
@@ -98,4 +100,44 @@ stackPrevBtn.addEventListener('click', () => {
   });
 
 });
+*/
+stackSliderButtons.forEach((button) => {
 
+  button.addEventListener('click', () => {
+
+    let sliderBoxSize = stackWrapper.getBoundingClientRect();
+
+    if (button.classList.contains('stack-btn-next')) {
+      [...stackItems].forEach((item) => {
+        item.style.zIndex = Number(item.style.zIndex) + 1;
+
+        if ((Number(item.style.zIndex)) >= stackItems.length) {
+          item.style.zIndex = 0;
+        }
+      })
+    } else if (button.classList.contains('stack-btn-prev')) {
+      [...stackItems].forEach((item) => {
+
+        item.style.zIndex = Number(item.style.zIndex) - 1;
+
+        if ((Number(item.style.zIndex)) < 0) {
+          item.style.zIndex = stackItems.length - 1;
+        }
+      })
+    }
+
+    [...stackItems].forEach((item) => {
+
+      item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) + 'px';
+
+      item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) + 'px';
+
+      item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
+
+      item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
+
+    });
+
+  });
+
+});
