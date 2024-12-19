@@ -14,12 +14,6 @@ const settings = {
   stepHeight: 0
 }
 
-let positions = [];
-
-stackItems.forEach((item, index)=> {
-  positions.push(index);
-})
-
 function stackSliderStyling() {
   
   sizing();
@@ -50,9 +44,9 @@ function sizing(){
 
   [...stackItems].forEach((item, index) => {
 
-    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * positions[index]))) + 'px';
+    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * index))) + 'px';
 
-    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * positions[index]))) + 'px';
+    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * index))) + 'px';
 
   });
 
@@ -107,3 +101,4 @@ stackPrevBtn.addEventListener('click', () => {
   });
 
 });
+
