@@ -1,6 +1,6 @@
 const stackItems = document.querySelectorAll('.stack-item');
-const stackPrevBtn = document.querySelector('.stack-btn-prev');
-const stackNextBtn = document.querySelector('.stack-btn-next');
+/*const stackPrevBtn = document.querySelector('.stack-btn-prev');
+const stackNextBtn = document.querySelector('.stack-btn-next');*/
 const stackWrapper = document.querySelector('.stack-wrapper');
 
 const stackSliderButtons = document.querySelectorAll('.stack-control-btn');
@@ -10,10 +10,10 @@ Use stepWidth / stepHeight if need various items width / height */
 
 const settings = {
   borderRadius: 10,
-  topGap: 0,
-  leftGap: 30,
-  stepWidth: 0,
-  stepHeight: 30
+  topGap: 30,
+  leftGap: 0,
+  stepWidth: 30,
+  stepHeight: 0
 }
 
 function stackSliderStyling() {
