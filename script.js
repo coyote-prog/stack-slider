@@ -1,9 +1,7 @@
 const stackItems = document.querySelectorAll('.stack-item');
-/*const stackPrevBtn = document.querySelector('.stack-btn-prev');
-const stackNextBtn = document.querySelector('.stack-btn-next');*/
 const stackWrapper = document.querySelector('.stack-wrapper');
-
 const stackSliderButtons = document.querySelectorAll('.stack-control-btn');
+const stackItemButtons = document.querySelectorAll('.stack-item__btn');
 
 /* One-direction mode work better (topGap - stepWidth) or (leftGap - stepHeight) 
 Use stepWidth / stepHeight if need various items width / height */
@@ -54,63 +52,13 @@ function sizing() {
 
 }
 
-/*
-stackNextBtn.addEventListener('click', () => {
 
-  let sliderBoxSize = stackWrapper.getBoundingClientRect();
-
-  [...stackItems].forEach((item, index) => {
-
-    item.style.zIndex = Number(item.style.zIndex) + 1;
-
-    if ((Number(item.style.zIndex)) >= stackItems.length) {
-      item.style.zIndex = 0;
-    }
-
-    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) + 'px';
-
-    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) + 'px';
-
-    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
-
-    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
-
-  });
-
-});
-
-
-stackPrevBtn.addEventListener('click', () => {
-
-  let sliderBoxSize = stackWrapper.getBoundingClientRect();
-
-  [...stackItems].forEach((item) => {
-
-    item.style.zIndex = Number(item.style.zIndex) - 1;
-
-    if ((Number(item.style.zIndex)) < 0) {
-      item.style.zIndex = stackItems.length - 1;
-    }
-
-    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) + 'px';
-
-    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) + 'px';
-
-    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
-
-    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
-
-  });
-
-});
-*/
 stackSliderButtons.forEach((button) => {
 
   button.addEventListener('click', () => {
 
-    let sliderBoxSize = stackWrapper.getBoundingClientRect();
-
     if (button.classList.contains('stack-btn-next')) {
+
       [...stackItems].forEach((item) => {
         item.style.zIndex = Number(item.style.zIndex) + 1;
 
@@ -129,18 +77,59 @@ stackSliderButtons.forEach((button) => {
       })
     }
 
-    [...stackItems].forEach((item) => {
-
-      item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) + 'px';
-
-      item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) + 'px';
-
-      item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
-
-      item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
-
-    });
+    getDynamicItemsSizing();
 
   });
 
 });
+
+
+stackItemButtons.forEach(button => {
+
+  button.addEventListener('click', ()=> {
+
+    let currentZIndex = Number(button.closest('.stack-item').style.zIndex);
+
+    let count = (stackItems.length-1) - currentZIndex;
+
+    
+
+    [...stackItems].forEach((item) => {
+
+      for (let i = 0; i < count; i++) {
+        
+        item.style.zIndex = Number(item.style.zIndex) + 1;
+
+        if ((Number(item.style.zIndex)) >= stackItems.length) {
+          item.style.zIndex = 0;
+        }
+  
+        if ((Number(item.style.zIndex)) < 0) {
+          item.style.zIndex = stackItems.length - 1;
+        }
+        
+      }
+      
+    });
+
+    getDynamicItemsSizing();
+    
+  });
+});
+
+function getDynamicItemsSizing() {
+
+  let sliderBoxSize = stackWrapper.getBoundingClientRect();
+
+  [...stackItems].forEach((item) => {
+
+    item.style.width = sliderBoxSize.width - (settings.leftGap * (stackItems.length - 1)) - ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) + 'px';
+
+    item.style.height = sliderBoxSize.height - (settings.topGap * (stackItems.length - 1)) - ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) + 'px';
+
+    item.style.left = (settings.leftGap * (Number(item.style.zIndex))) + ((settings.stepWidth * (stackItems.length - 1) - (settings.stepWidth * (Number(item.style.zIndex))))) / 2 + 'px';
+
+    item.style.top = (settings.topGap * (Number(item.style.zIndex))) + ((settings.stepHeight * (stackItems.length - 1) - (settings.stepHeight * (Number(item.style.zIndex))))) / 2 + 'px';
+
+  });
+}

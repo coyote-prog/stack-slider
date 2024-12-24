@@ -19,6 +19,18 @@
   transition: all .5s;
 }
 
+.stack-item__btn {
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all .35s;
+}
+
+.stack-item__btn:hover {
+  cursor: pointer;
+  background-color: bisque;
+}
+
 .controls-box {
   position: absolute;
   top: 650px;
