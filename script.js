@@ -1,19 +1,27 @@
+/*slide*/
 const stackItems = document.querySelectorAll('.stack-item');
+
+/*slider container for define sizes*/
 const stackWrapper = document.querySelector('.stack-wrapper');
+
+/* standart slider control buttons*/
 const stackSliderButtons = document.querySelectorAll('.stack-control-btn');
+
+/*buttons, placed on each slide*/
 const stackItemButtons = document.querySelectorAll('.stack-item__btn');
 
 /* One-direction mode work better (topGap - stepWidth) or (leftGap - stepHeight) 
 Use stepWidth / stepHeight if need various items width / height */
 
 const settings = {
-  borderRadius: 10,
-  topGap: 30,
-  leftGap: 0,
-  stepWidth: 30,
-  stepHeight: 0
+  borderRadius: 10, /* slide border radius */
+  topGap: 30, /* vertical distance of slides */
+  leftGap: 0, /* horizontal distance of slides */
+  stepWidth: 30, /* increase widtg of slide */
+  stepHeight: 0 /* increaase height of slide */
 }
 
+/* set some styles for slider elements */
 function stackSliderStyling() {
 
   sizing();
@@ -33,11 +41,12 @@ function stackSliderStyling() {
 
 stackSliderStyling();
 
+/* updaate styles while window  resize */
 window.addEventListener('resize', () => {
   sizing();
 });
 
-
+/* define sizes of slides and slider */
 function sizing() {
 
   let sliderBoxSize = stackWrapper.getBoundingClientRect();
@@ -52,7 +61,7 @@ function sizing() {
 
 }
 
-
+/* sliding of slides by usual buttons next nd prev */
 stackSliderButtons.forEach((button) => {
 
   button.addEventListener('click', () => {
@@ -83,7 +92,7 @@ stackSliderButtons.forEach((button) => {
 
 });
 
-
+/* sliding slides by buttons placed on each slide */
 stackItemButtons.forEach(button => {
 
   button.addEventListener('click', ()=> {
@@ -117,6 +126,8 @@ stackItemButtons.forEach(button => {
   });
 });
 
+
+/* define sizes of slider while sliding */
 function getDynamicItemsSizing() {
 
   let sliderBoxSize = stackWrapper.getBoundingClientRect();
